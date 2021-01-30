@@ -29,7 +29,7 @@ class Deck:
     def dealcard(self):
         return self.deck.pop()
 
-class Player()
+class Player:
 
     def __init__(self,name):
         self.name = name
@@ -47,5 +47,82 @@ class Player()
         else:
             self.all_cards.append(new_cards)
 
+player_one = Player("One")
+player_two = Player("Two")
+newdeck = Deck()
+newdeck.shuffledeck()
+for x in range(26):
+    player_one.add_card(newdeck.dealcard())
+    player_two.add_card(newdeck.dealcard())
 
-class Game():
+gamewin = False
+round_num = 0
+atwar = False
+
+while gamewin == False:
+    round_num += 1
+    print(f'Round {round_num}')
+    if len(player_one.all_cards) == 0:
+        print('Player One, you lost! Player two you win!')
+        gamewin = True
+        break
+    if len(player_two.all_cards) == 0:
+        print('Player Two, you lost! Player One you win!')
+        gamewin = True
+        break
+    player_one_cards = []
+    player_one_cards.append(player_one.remove_one())
+    player_two_cards = []
+    player_two_cards.append(player_two.remove_one())
+    p2value = 0
+    p1value = 0
+    if player_one_cards[-1].value == player_two_cards[-1].value:
+        if len(player_two.all_cards) < 5:
+            print('player two loses not enough cards for war!')
+            gamewin = True
+        elif len(player_one.all_cards) < 5:
+            print('player one loses not enough cards for war!')
+            gamewin = True
+        else:
+            atwar = True
+        print('You are at war!')
+    elif player_one_cards[-1].value > player_two_cards[-1].value:
+        player_one.add_card(player_two_cards)
+        player_one.add_card(player_one_cards)
+        print("player 1 wins")
+    else:
+        player_two.add_card(player_two_cards)
+        player_two.add_card(player_one_cards)
+        print("player 2 wins")
+    while atwar == True:
+        for x in range(5):
+            player_two_cards.append(player_two.remove_one())
+            player_one_cards.append(player_one.remove_one())
+        for x in range(6):
+            p2value += player_two_cards[x].value
+        for x in range(6):
+            p1value += player_two_cards[x].value
+        if p1value == p2value:
+            if len(player_two.all_cards) < 5:
+                print('player two loses not enough cards for war!')
+                gamewin = True
+                break
+            elif len(player_one.all_cards) < 5:
+                print('player one loses not enough cards for war!')
+                gamewin = True
+                break
+            else:
+                atwar = True
+            print('You are still at war!')
+        elif p1value > p2value:
+            player_one.add_card(player_two_cards)
+            player_one.add_card(player_one_cards)
+            print("player 1 wins")
+            atwar = False
+        else:
+            player_two.add_card(player_two_cards)
+            player_two.add_card(player_one_cards)
+            print("player 2 wins")
+            atwar = False
+
+
