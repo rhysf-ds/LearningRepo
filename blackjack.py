@@ -122,7 +122,7 @@ def show_all(player, dealer):
     print("Player's Hand =", player.value)
 
 
-def player_busts(player, dealer, chips):
+def player_busts(chips):
     print("Player busts!")
     chips.lose_bet()
 
@@ -175,7 +175,7 @@ while True:
         show_some(player_hand, dealer_hand)
 
         if player_hand.value > 21:
-            player_busts(player_hand, dealer_hand, player_chips)
+            player_busts(player_hand)
             break
 
     if player_hand.value <= 21:
